@@ -1,0 +1,9 @@
+<root>
+    <item name='android.widget.AdapterView void encodeProperties(ViewHierarchyEncoder) 0'>
+        <annotation name='java.lang.Deprecated' />
+    </item>
+    <item
+        name='android.widget.AdapterView void setOnItemSelectedListener(android.widget.AdapterView.OnItemSelectedListener) 0'>
+        <annotation name='java.lang.Deprecated' />
+    </item>
+</root>

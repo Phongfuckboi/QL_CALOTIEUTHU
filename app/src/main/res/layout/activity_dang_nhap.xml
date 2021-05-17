@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="#0091EA">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="sans-serif"
+        android:text="Đăng Nhập"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="30dp"/>
+
+    <EditText
+        android:id="@+id/edTenDangNhapDN"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="Tên Đăng Nhập....."
+        android:padding="10dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/custom_edt"
+        android:textColorHint="#D2E8E1"
+        android:singleLine="true"
+        android:textColor="#E3D3D3"
+        tools:ignore="Autofill,TextFields" />
+
+    <EditText
+        android:id="@+id/edMatKhauDN"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="Nhập Mật Khẩu...."
+        android:padding="10dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/custom_edt"
+        android:textColorHint="#D2E8E1"
+        android:singleLine="true"
+        android:textColor="#E3D3D3"
+        android:password="true"
+        tools:ignore="Autofill,Deprecated,TextFields"/>
+
+    <Button
+        android:id="@+id/btnDongYDN"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Đồng Ý"
+        android:background="@drawable/custom_button"
+        android:padding="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="10dp"
+        android:textStyle="bold"
+        android:textColor="#E4D4D4"/>
+    <TextView
+        android:id="@+id/txt_dangki"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Đăng kí"
+        android:textSize="20dp"/>
+
+</LinearLayout>

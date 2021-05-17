@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".TinhCaloDiChuyenActivity">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:background="#638FD1"
+        android:text="Record"
+        android:textColor="#292323"
+        android:textSize="20dp"
+        android:gravity="center" />
+
+    <LinearLayout
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/Itemhd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="item"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="20sp"
+                android:text="×"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:background="@drawable/custom_edt"
+                android:id="@+id/thoigianhd"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:hint="giờ"
+                android:textColorHint="#9E8585"
+                android:textSize="20dp"
+                android:inputType="number" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textSize="20sp"
+                android:text="= "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tatalcalorieshd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="calories"
+                android:textSize="20dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <Button
+            android:id="@+id/btn_tinhcalohd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_btn"
+            android:text="Xem Trước Calo Tiêu Thụ"
+            android:textColor="#3E2E2E"
+            android:layout_marginBottom="10dp"
+       />
+
+        <Button
+            android:id="@+id/btn_themvaols"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_btn"
+            android:text="Thêm Vào Lịch Sử Hoạt Động"
+            android:textColor="#3E2E2E"
+            />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/thoathd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="thoát"
+        android:layout_gravity="center"
+        android:background="@drawable/custom_button"/>
+
+
+</LinearLayout>

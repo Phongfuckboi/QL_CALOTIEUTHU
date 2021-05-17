@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".DangKiActivity"
+    android:background="#0091EA">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:fontFamily="@font/alfa_slab_one"
+        android:gravity="center"
+        android:padding="20dp"
+        android:text="Đăng Kí "
+        android:textSize="30dp" />
+    <LinearLayout
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <EditText
+            android:background="@drawable/custom_edt"
+            android:id="@+id/edt_tendk"
+            android:layout_gravity="center"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:hint="Tên Của Bạn...."
+            android:textSize="20dp"
+            android:textColorHint="#8F7C7C"/>
+        <EditText
+            android:background="@drawable/custom_edt"
+            android:id="@+id/edt_mkdk"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:hint="Mật Khẩu...."
+            android:textSize="20dp"
+            android:textColorHint="#8F7C7C"/>
+        <EditText
+            android:background="@drawable/custom_edt"
+            android:id="@+id/edt_id"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:hint="4 số Cuối CMTND...."
+            android:textSize="20dp"
+            android:textColorHint="#8F7C7C"/>
+    </LinearLayout>
+
+    <Button
+        android:background="@drawable/custom_button"
+        android:id="@+id/btn_dangki"
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Đăng Kí"
+        android:inputType="number"/>
+
+
+
+
+
+</LinearLayout>

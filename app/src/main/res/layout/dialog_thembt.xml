@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Thêm Các Bài Tập Mới"
+        android:gravity="center"
+        android:background="#638FD1"
+        android:padding="20dp"
+        android:textSize="20dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:id="@+id/edt_tenbt"
+        android:background="@drawable/custom_edt"
+        android:hint="Tên Bài Tập..."/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:id="@+id/edt_calobt"
+        android:background="@drawable/custom_edt"
+        android:hint="Calo Tiêu Thụ/Giờ..."
+        android:inputType="number"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_thembt"
+        android:background="@drawable/custom_btn"
+        android:text="OK"/>
+
+
+</LinearLayout>

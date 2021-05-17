@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "794348835526",
+    "project_id": "coutcalories",
+    "storage_bucket": "coutcalories.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:794348835526:android:858662a52afb8d030e3dc7",
+        "android_client_info": {
+          "package_name": "com.example.congnghephanmembtl"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "794348835526-6aap7k5nf6hks8lqe74go1o03a70a5um.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDn56eiufklftRgGg26BGqIv9JHF7uO9gQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "794348835526-6aap7k5nf6hks8lqe74go1o03a70a5um.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
