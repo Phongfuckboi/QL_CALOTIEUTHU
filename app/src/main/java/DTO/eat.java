@@ -17,8 +17,8 @@ public class eat  {
     @Override
     public String toString() {
         return
-                "food: '" + food + '\'' +
-                ", calories='" + calories + '\'' +
+                "food: " + food  +
+                "- calories=" + calories +
                 '.';
     }
 

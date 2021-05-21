@@ -1,5 +1,6 @@
 package fragment;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -57,6 +58,8 @@ public class favouritFragment extends Fragment {
     ArrayList<History>  historyArrayList;
     int sumOfEatCal = 0;
     int sumOfMoveCal = 0;
+    String id;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -110,6 +113,16 @@ public class favouritFragment extends Fragment {
         txt_calodanap=(TextView)  view.findViewById(R.id.gotCalories);
         txt_calotieuthu=(TextView) view.findViewById(R.id.lostCalories);
         //
+        //get id tai khoan
+        Bundle bundle=getArguments();
+        if(bundle!=null)
+        {
+            id=bundle.getString("id");
+        }
+        else {
+            System.out.println("loi");
+        }
+
 
         //
         pieChart= view.findViewById(R.id.piechart);
@@ -133,33 +146,22 @@ public class favouritFragment extends Fragment {
 
         //
         ref_info=FirebaseDatabase.getInstance().getReference();
-        ref_info.child("InFo").addChildEventListener(new ChildEventListener() {
+        ref_info.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                Info info=new Info();
-                info=snapshot.getValue(Info.class);
-                if((info.getCalorieshientai())!=0) {
-                    int calodexuat = info.getCaloriesmuctieu();
-                    txt_calodexuat.setText(String.valueOf(calodexuat));
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot datainfo: snapshot.child("InFo").getChildren())
+                {
+
+                    Info info=datainfo.getValue(Info.class);
+                    String ktid=String.valueOf(info.getId());
+                    if((info.getCalorieshientai())!=0 && ktid.equals(id)) {
+                        int calodexuat = info.getCaloriesmuctieu();
+                        txt_calodexuat.setText(String.valueOf(calodexuat));
+                    }
+                    else {
+                       System.out.println("loi");
+                    }
                 }
-                else {
-                    Toast.makeText(getContext(),"Hệ Thống lỗi mất rồi:(",Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
             }
 
             @Override
@@ -238,7 +240,8 @@ public class favouritFragment extends Fragment {
                     historyArrayList = new ArrayList<>();
                     History history1 = history.getValue(History.class);
                     String datehis = history1.getDate().toString();
-                    if (datehis.equals(ngayhientai)) {
+                    String ktiduser=history1.getId().toString();
+                    if (datehis.equals(ngayhientai)&& ktiduser.equals(id)) {
                         historyArrayList.add(history1);
                         setgiatri();
                     }
@@ -267,7 +270,5 @@ public class favouritFragment extends Fragment {
             }
 
         }
-
-
     }
 }

@@ -6,8 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
@@ -25,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
     MeowBottomNavigation meowBottomNavigation;
     private ActionBar actionBar;
+    String id,name;
 
 
     @Override
@@ -38,6 +41,14 @@ public class MainActivity extends AppCompatActivity {
         myRef.child("Eat").push().setValue(eat);
 
 
+        Intent intent= getIntent();
+        id=intent.getStringExtra("id");
+        name=intent.getStringExtra("name");
+
+
+
+
+
 //        meowBottomNavigation= findViewById(R.id.bottom_navagation);
 //
 //        //add item in bottom navagation
@@ -49,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
        loadfragment(new favouritFragment());
+
     }
 
 
@@ -97,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
 //        });
 
 
+
         private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
                 = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -106,14 +119,24 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.navigation_overview:
                         fragment = new favouritFragment();
+                        Bundle bundle2=new Bundle();
+                        bundle2.putString("id",id);
+                        fragment.setArguments(bundle2);
                         loadfragment(fragment);
                         break;
                     case R.id.navigation_home:
                         fragment = new HomeFragment();
+                        Bundle bundl1=new Bundle();
+                        bundl1.putString("id",id);
+                        fragment.setArguments(bundl1);
                         loadfragment(fragment);
                         break;
                     case R.id.navigation_person:
                         fragment = new PersonFragment();
+                        Bundle bundle=new Bundle();
+                        bundle.putString("id",id);
+                        bundle.putString("name",name);
+                        fragment.setArguments(bundle);
                         loadfragment(fragment);
                         break;
 

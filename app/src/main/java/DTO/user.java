@@ -1,8 +1,9 @@
 package DTO;
 
 import java.security.PrivateKey;
+import java.util.ArrayList;
 
-public class user {
+public class user   {
 
     private  String id,name,pass;
 

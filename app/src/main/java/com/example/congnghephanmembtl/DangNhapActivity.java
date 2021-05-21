@@ -1,7 +1,6 @@
 package com.example.congnghephanmembtl;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -12,11 +11,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 import DTO.user;
 
@@ -26,6 +27,8 @@ public class DangNhapActivity extends AppCompatActivity {
     Button btn_acess;
     TextView txt_dangki;
     private DatabaseReference mdata;
+    ArrayList arrayListdn;
+    String  id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +39,7 @@ public class DangNhapActivity extends AppCompatActivity {
         edt_name= (EditText) findViewById(R.id.edTenDangNhapDN);
         edt_pass= (EditText) findViewById(R.id.edMatKhauDN);
         btn_acess=(Button) findViewById(R.id.btnDongYDN) ;
+        arrayListdn=new ArrayList<user>();
 
         //
         user user=new user("123","phongthdz","1") ;
@@ -43,8 +47,14 @@ public class DangNhapActivity extends AppCompatActivity {
         mdata=FirebaseDatabase.getInstance().getReference();
 //        mdata.child("User").push().setValue(user);
 
-        kiemtraDN();
         Dangki();
+
+        btn_acess.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                kiemtraDN();
+            }
+        });
 
     }
 
@@ -58,45 +68,34 @@ public class DangNhapActivity extends AppCompatActivity {
         });
     }
 
+
     private void kiemtraDN() {
-        mdata.child("User").addChildEventListener(new ChildEventListener() {
+        mdata.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                user usern=snapshot.getValue(user.class);
-                String ktname =usern.getName();
-                String ktmk=usern.getPass();
-                btn_acess.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if((edt_name.getText().toString().equals(ktname))&&(edt_pass.getText().toString().equals(ktmk)))
-                        {
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String ktname;
+                String ktmk;
+                for(DataSnapshot datadn: snapshot.child("User").getChildren())
+                {
+                    user user=datadn.getValue(DTO.user.class);
+                    arrayListdn.add(user);
+                    ktname= user.getName();
+                     ktmk=user.getPass();
 
-                            Toast.makeText(DangNhapActivity.this,"let's go",Toast.LENGTH_SHORT).show();
-                            Intent intent= new Intent(DangNhapActivity.this,MainActivity.class);
-                            startActivity(intent);
+                    if((edt_name.getText().toString().equals(ktname))&&(edt_pass.getText().toString().equals(ktmk)))
+                    {
+                        id=user.getId();
+                        Toast.makeText(DangNhapActivity.this,"let's go",Toast.LENGTH_SHORT).show();
+                        Intent intent= new Intent(DangNhapActivity.this,MainActivity.class);
+                        intent.putExtra("name",ktname);
+                        intent.putExtra("id",id);
+                        startActivity(intent);
 
-                        }
-                        else
-                            Toast.makeText(DangNhapActivity.this,"erorr pass or name",Toast.LENGTH_SHORT).show();
                     }
-                });
+                    else
+                        Toast.makeText(DangNhapActivity.this,"erorr pass or name",Toast.LENGTH_SHORT).show();
 
-
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
+                }
             }
 
             @Override

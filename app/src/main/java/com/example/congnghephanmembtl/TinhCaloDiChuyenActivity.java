@@ -83,12 +83,13 @@ public class TinhCaloDiChuyenActivity extends AppCompatActivity {
                     Intent intent1 = getIntent();
                     String tenhd = intent1.getStringExtra("tenhd");
                     String calohd = intent1.getStringExtra("calohd");
+                    String iduser=intent.getStringExtra("id");
 
                     int a = Integer.parseInt(calohd);
                     int b = Integer.parseInt(edt_thoigian.getText().toString());
                     int tong = (-a * b);
                     String tongcalo2 = String.valueOf(tong);
-                    String id = ref_history.child("Eat").push().getKey();
+                    String id = iduser;
 
                     History history = new History(id, date, tenhd, tongcalo2);
                     ref_history.child("History").push().setValue(history);

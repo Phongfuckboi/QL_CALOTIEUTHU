@@ -34,6 +34,7 @@ public class TapLuyenactivity extends AppCompatActivity {
     DatabaseReference ref_move;
     Move move;
     Button btn_thembt;
+    String iduser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,10 @@ public class TapLuyenactivity extends AppCompatActivity {
         btn_thembt=(Button) findViewById(R.id.btn_themvaomove);
         array_move=new ArrayList<Move>();
         arrayAdaptermove=new ArrayAdapter<Move>(this, android.R.layout.simple_list_item_1,array_move);
+        //get idser
+
+        Intent intenth=getIntent();
+        iduser=intenth.getStringExtra("id");
         //
         FirebaseDatabase database=FirebaseDatabase.getInstance();
         ref_move=FirebaseDatabase.getInstance().getReference();
@@ -76,9 +81,12 @@ public class TapLuyenactivity extends AppCompatActivity {
                 Move hoatdong= array_move.get(position);
                 intent.putExtra("tenhd",hoatdong.getExercises());
                 intent.putExtra("calohd",hoatdong.getCalories());
+                intent.putExtra("id",iduser);
                 startActivity(intent);
             }
         });
+
+        //them bt
         btn_thembt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

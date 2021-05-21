@@ -22,7 +22,7 @@ public class ThongTinCaNhanActivity extends AppCompatActivity {
     Button btn_tinhcalo, btn_letgo;
     TextView txt_calohientai, txt_calomuctieu;
     double chisocalo;
-
+     int id;
     int cannanghientai;
     int cannangmongmuon;
     int calohientai;
@@ -40,6 +40,14 @@ public class ThongTinCaNhanActivity extends AppCompatActivity {
         btn_letgo=(Button) findViewById(R.id.getStarted);
         txt_calohientai=(TextView) findViewById(R.id.calorieCurrent);
         txt_calomuctieu=(TextView) findViewById(R.id.calorieTarget);
+        //getintent tu ben dangki
+        Intent intent=getIntent();
+        id =Integer.valueOf(intent.getStringExtra("id"));
+
+
+
+
+
         //
         btn_letgo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,8 +72,9 @@ public class ThongTinCaNhanActivity extends AppCompatActivity {
         FirebaseDatabase database= FirebaseDatabase.getInstance();
         ref_info=FirebaseDatabase.getInstance().getReference();
         Intent intent= new Intent(this,MainActivity.class);
-        Info info= new Info(cannanghientai,cannangmongmuon,calohientai,calomuctieu);
+        Info info= new Info(cannanghientai,cannangmongmuon,calohientai,calomuctieu,id);
         ref_info.child("InFo").push().setValue(info);
+        intent.putExtra("id",String.valueOf(id));
         startActivity(intent);
 
     }

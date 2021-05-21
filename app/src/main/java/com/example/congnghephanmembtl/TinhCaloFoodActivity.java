@@ -34,6 +34,9 @@ public class TinhCaloFoodActivity extends AppCompatActivity {
     DatabaseReference ref_history;
     List<History> historyArrayList;
     Date today = new Date();
+    String food;
+    String calo;
+    String iduser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +46,11 @@ public class TinhCaloFoodActivity extends AppCompatActivity {
 
         //lay du lieu tu inten
         Intent intent = getIntent();
-        String food = intent.getStringExtra("food");
-        String calo=intent.getStringExtra("calo");
+         food = intent.getStringExtra("food");
+         calo=intent.getStringExtra("calo");
+         iduser=intent.getStringExtra("id");
         int calo1=Integer.parseInt(calo);
-        txt_ckeckedItem.setText(food+"/100g");
+        txt_ckeckedItem.setText(food+"*100g");
 
         //thoat
         btn_thoat.setOnClickListener(new View.OnClickListener() {
@@ -90,7 +94,7 @@ public class TinhCaloFoodActivity extends AppCompatActivity {
                     int tong = (a * b);
 
                     String tongcalo2 = String.valueOf(tong);
-                    String id = ref_history.child("Eat").push().getKey();
+                    String id = iduser;
 
                     history = new History(id, date, tenmondachon, tongcalo2);
                     ref_history.child("History").push().setValue(history);

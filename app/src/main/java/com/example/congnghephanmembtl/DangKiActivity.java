@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import DTO.user;
+import fragment.PersonFragment;
 
 public class DangKiActivity extends AppCompatActivity {
 
@@ -49,15 +50,13 @@ public class DangKiActivity extends AppCompatActivity {
         btn_dk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ref_move.child("Overview").removeValue();
-                ref_his.child("History").removeValue();
                 String name=edt_name.getText().toString();
                 String mk=edt_mk.getText().toString();
                 String id=edt_id.getText().toString();
                 if(name==null||name.equals("") ) {
                     Toast.makeText(DangKiActivity.this, "Vui Lòng điền Đầy Đủ Thông Tin", Toast.LENGTH_SHORT).show();
                 }
-                else if(id==null ||id.equals("")&& Integer.valueOf(id)>10000)
+                else if(id==null ||id.equals("")|| Integer.valueOf(id)>10000)
                 {
                     Toast.makeText(DangKiActivity.this, "Lưu ý CMTND chỉ cần 4 số cuối", Toast.LENGTH_SHORT).show();
                 }
@@ -74,6 +73,7 @@ public class DangKiActivity extends AppCompatActivity {
                     intentgetstart.putExtra("id",id);
                     startActivity(intentgetstart);
 
+
                 }
 //                intentgetstart.putExtra("ten",name);
 //                intentgetstart.putExtra("id",id);
@@ -84,6 +84,7 @@ public class DangKiActivity extends AppCompatActivity {
 
             }
         });
+
 
 
 

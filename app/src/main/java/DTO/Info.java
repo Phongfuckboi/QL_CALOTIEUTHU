@@ -5,15 +5,26 @@ public class Info {
     int Weightmongmuon;
     int Calorieshientai;
     int Caloriesmuctieu;
+    int Id;
 
     public Info() {
     }
 
-    public Info(int weighthientai, int weightmongmuon, int calorieshientai, int caloriesmuctieu) {
+    public Info(int weighthientai, int weightmongmuon, int calorieshientai, int caloriesmuctieu ,int id){
         Weighthientai = weighthientai;
         Weightmongmuon = weightmongmuon;
         Calorieshientai = calorieshientai;
         Caloriesmuctieu = caloriesmuctieu;
+        Id=id;
+
+    }
+
+    public int getId() {
+        return Id;
+    }
+
+    public void setId(int id) {
+        Id = id;
     }
 
     public int getWeighthientai() {
@@ -55,6 +66,7 @@ public class Info {
                 ", Weightmongmuon=" + Weightmongmuon +
                 ", Calorieshientai=" + Calorieshientai +
                 ", Caloriesmuctieu=" + Caloriesmuctieu +
+                ",id="+Id+
                 '}';
     }
 }

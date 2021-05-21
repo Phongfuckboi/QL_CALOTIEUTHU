@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.congnghephanmembtl.R;
 import com.example.congnghephanmembtl.TapLuyenactivity;
@@ -46,6 +47,8 @@ public class HomeFragment extends Fragment {
     ArrayList   arr_move;
     Button btn_themthucdon,btn_tapluyen,btn_chontuds,btn_thucdon;
     ListView lst_eat;
+    String iduser;
+    private  static  int QUYEN=1;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -110,7 +113,19 @@ public class HomeFragment extends Fragment {
         lst_eat.setAdapter(arrayAdaptereat);
 
 
-       //get to database from move
+       //get id
+        Bundle bundle=getArguments();
+        if(bundle!=null)
+        {
+            iduser=bundle.getString("id");
+
+        }
+        else {
+            Toast.makeText(getContext(),"loi",Toast.LENGTH_SHORT).show();
+        }
+
+
+
 
 
 
@@ -137,12 +152,12 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent= new Intent(getContext(), TapLuyenactivity.class);
+                intent.putExtra("id",iduser);
                 startActivity(intent);
 
             }
         });
 
-        //////////////////
         Intent intent = new Intent(getContext(), TinhCaloFoodActivity.class);
         lst_eat.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -150,6 +165,7 @@ public class HomeFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 //                String data= (String) arr_eat.get(position);
                 eat eat=  arr_eat.get(position);
+                intent.putExtra("id",iduser);
                 intent.putExtra("food",eat.getFood());
                 intent.putExtra("calo",eat.getCalories());
 //                intent.putExtra("data",data);
@@ -157,12 +173,21 @@ public class HomeFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        //quyen cua admin
+        lst_eat.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+
+
+                return false;
+            }
+        });
         return view;
     }
 
 
 
-    /////////////////
     private void thucdon() {
         FirebaseDatabase firebaseDatabase= FirebaseDatabase.getInstance();
         ref_eat=FirebaseDatabase.getInstance().getReference();

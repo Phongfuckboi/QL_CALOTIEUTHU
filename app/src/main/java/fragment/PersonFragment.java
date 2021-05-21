@@ -50,12 +50,15 @@ public class PersonFragment extends Fragment {
     Button btn_chonngay;
     CalendarView calendarView;
     String ngaychon;
-    TextView txt_ngaychon;
+    TextView txt_ngaychon ,txt_tenNV,test;
     Button Btn_chonngay1;
-    TextView test;
     static int sumOfCalories;
     static int sumOfMoveCal;
     static int sumOfEatCal;
+    String id;
+    String name;
+
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -97,10 +100,6 @@ public class PersonFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-//        ref_history.child("History").push().setValue(history);
-
-//        ref_eath=database.getReference("eat");
-//        ref_moveh=database.getReference("move");
     }
 
     @Override
@@ -112,8 +111,26 @@ public class PersonFragment extends Fragment {
 
         //chon ngay
 
-         test=(TextView) view.findViewById(R.id.test);
+        test=(TextView) view.findViewById(R.id.test);
+        txt_tenNV=(TextView) view.findViewById(R.id.txt_tenND);
         btn_chonngay=(Button) view.findViewById(R.id.choosedate);
+
+        //
+        Bundle bundle=getArguments();
+        if(bundle!=null)
+        {
+            id=bundle.getString("id");
+            name=bundle.getString("name");
+            txt_tenNV.setText("HELLO:"+name);
+
+        }
+        else {
+           System.out.println("loi");
+        }
+
+
+
+        //
         btn_chonngay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,17 +145,21 @@ public class PersonFragment extends Fragment {
         ref_history=FirebaseDatabase.getInstance().getReference();
         arrayhistory=new ArrayList<>();
         list_history=(ListView) view.findViewById(R.id.historyListView) ;
-       ref_history.addValueEventListener(new ValueEventListener() {
+        ref_history.addValueEventListener(new ValueEventListener() {
            @Override
            public void onDataChange(@NonNull DataSnapshot snapshot) {
                for(DataSnapshot history:snapshot.child("History").getChildren())
                {
                    History history1=history.getValue(History.class);
                    String datehis=history1.getDate().toString();
-                   if(date1.equals(datehis)) {
+                   String Ktid=history1.getId().toString();
+
+                   if(date1.equals(datehis)&& id.equals(Ktid) ) {
                        arrayhistory.add(history1);
                    }
+
                }
+
                arrayAdapterhis=new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1,arrayhistory);
                list_history.setAdapter(arrayAdapterhis);
                arrayAdapterhis.notifyDataSetInvalidated();
@@ -177,9 +198,6 @@ public class PersonFragment extends Fragment {
                 final String date2 = today.getYear() + 1900 + "/" + (1 + today.getMonth()) + "/" + today.getDate();
                 FirebaseDatabase database=FirebaseDatabase.getInstance();
                 ref_history=FirebaseDatabase.getInstance().getReference();
-                        ref_overview=FirebaseDatabase.getInstance().getReference();
-                        overview overview= new overview(sumOfMoveCal,sumOfEatCal);
-                        ref_overview.child("Overview").push().setValue(overview);
                 ref_history.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -189,25 +207,17 @@ public class PersonFragment extends Fragment {
                             String a=txt_ngaychon.getText().toString();
                             History history1=history.getValue(History.class);
                             String datehis=history1.getDate().toString();
-                            if(datehis.equals(a)) {
+                            String iduser=history1.getId().toString();
+                            if(datehis.equals(a)&& iduser.equals(id)) {
                                 arrayhistory.add(history1);
                                 tinhtong();
-//                                String a2=test.getText().toString();
-//                                FirebaseDatabase database1=FirebaseDatabase.getInstance();
-//                                ref_overview=FirebaseDatabase.getInstance().getReference();
-//                                overview overview= new overview(,);
-//                                ref_overview.child("Overview").push().setValue(a2);
+
                             }
 
                         }
                         arrayAdapterhis=new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1,arrayhistory);
                         list_history.setAdapter(arrayAdapterhis);
                         arrayAdapterhis.notifyDataSetInvalidated();
-//                        String a2=test.getText().toString();
-//                        Toast.makeText(getContext(),a2,Toast.LENGTH_SHORT).show();
-//                        FirebaseDatabase database1=FirebaseDatabase.getInstance();
-//                        ref_overview=FirebaseDatabase.getInstance().getReference();
-//                        ref_overview.child("Overview").push().setValue(a2);
 
                     }
 

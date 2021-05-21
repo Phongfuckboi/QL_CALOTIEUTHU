@@ -25,7 +25,7 @@
             android:inputType="text"
             android:padding="10dp"
             android:text="TODAY"
-            android:textColor="#B54646"
+            android:textColor="#096005"
             android:textSize="20dp" />
 
         <CalendarView
@@ -89,6 +89,7 @@
             android:text="Thêm TD riêng"
             android:layout_width="150dp"
             android:layout_height="50dp"
+            android:textSize="13dp"
             ></Button>
     </LinearLayout>
 
