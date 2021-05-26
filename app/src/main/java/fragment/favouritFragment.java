@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.congnghephanmembtl.MainActivity;
 import com.example.congnghephanmembtl.R;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
@@ -33,6 +34,9 @@ import java.util.List;
 import DTO.History;
 import DTO.Info;
 import DTO.overview;
+
+import static com.github.mikephil.charting.utils.ColorTemplate.COLORFUL_COLORS;
+import static com.github.mikephil.charting.utils.ColorTemplate.createColors;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -126,22 +130,22 @@ public class favouritFragment extends Fragment {
 
         //
         pieChart= view.findViewById(R.id.piechart);
-        ArrayList<PieEntry> vector= new ArrayList<>();
-        vector.add(new PieEntry(1250,"getcalo"));
-        vector.add(new PieEntry(-1260,"lostcalo"));
-        vector.add(new PieEntry(3450,"getcalo"));
-        vector.add(new PieEntry(-1260,"lostcalo"));
-
-        PieDataSet pieDataSet= new PieDataSet (vector,"Today");
-        pieDataSet.setColor(ColorTemplate.COLORFUL_COLORS[0]+ColorTemplate.COLORFUL_COLORS[1]+ColorTemplate.COLORFUL_COLORS[2]+ColorTemplate.COLORFUL_COLORS[4]);
-        pieDataSet.setValueTextColor(Color.BLACK);
-        pieDataSet.setValueTextSize(10f);
-
-        pieData = new PieData(pieDataSet);
-        pieChart.setData(pieData);
-        pieChart.getDescription().setEnabled(false);
-        pieChart.setCenterText("ToDay");
-        pieChart.animate();
+//        ArrayList<PieEntry> vector= new ArrayList<>();
+//        vector.add(new PieEntry(1250,"getcalo"));
+//        vector.add(new PieEntry(-1260,"lostcalo"));
+//        vector.add(new PieEntry(3450,"getcalo"));
+//        vector.add(new PieEntry(-1260,"lostcalo"));
+//
+//        PieDataSet pieDataSet= new PieDataSet (vector,"Today");
+//        pieDataSet.setColor(ColorTemplate.COLORFUL_COLORS[0]+ColorTemplate.COLORFUL_COLORS[1]+ColorTemplate.COLORFUL_COLORS[2]+ColorTemplate.COLORFUL_COLORS[4]);
+//        pieDataSet.setValueTextColor(Color.BLACK);
+//        pieDataSet.setValueTextSize(10f);
+//
+//        pieData = new PieData(pieDataSet);
+//        pieChart.setData(pieData);
+//        pieChart.getDescription().setEnabled(false);
+//        pieChart.setCenterText("ToDay");
+//        pieChart.animate();
 
 
         //
@@ -200,21 +204,7 @@ public class favouritFragment extends Fragment {
 
                     }
                 }
-//                PieDataSet pieDataSet= new PieDataSet ((List<PieEntry>) overview,"Today");
-//                pieDataSet.setColor(Color.BLACK);
-//                pieDataSet.setValueTextColor(Color.BLACK);
-//                pieDataSet.setValueTextSize(10f);
 //
-//                pieData = new PieData(pieDataSet);
-//                pieChart.setData(pieData);
-//                pieChart.getDescription().setEnabled(false);
-//                pieChart.setCenterText("ToDay");
-//                pieChart.animate();
-
-
-
-//               txt_calodanap.setText(String.valueOf(tongcaloan));
-//               txt_calotieuthu.setText(String.valueOf(tongcalotieuthu));
             }
 
 
@@ -249,6 +239,7 @@ public class favouritFragment extends Fragment {
                 }
                 txt_calodanap.setText(""+sumOfEatCal);
                 txt_calotieuthu.setText(String.valueOf(sumOfMoveCal));
+
             }
 
 
@@ -270,5 +261,24 @@ public class favouritFragment extends Fragment {
             }
 
         }
+        if(sumOfEatCal>Integer.valueOf(txt_calodexuat.getText().toString()))
+                {
+                    Toast.makeText(getContext(),"Hôm nay bạn ăn hơi nhiều!!!",Toast.LENGTH_LONG).show();
+                }
+
+        ArrayList<PieEntry> vector= new ArrayList<>();
+
+        vector.add(new PieEntry(sumOfEatCal,"getcalo"));
+        vector.add(new PieEntry(sumOfMoveCal,"lostcalo"));
+        PieDataSet pieDataSet= new PieDataSet (vector,"Today");
+        pieDataSet.setColor(ColorTemplate.COLORFUL_COLORS[4]);
+        pieDataSet.setValueTextColor(Color.BLACK);
+        pieDataSet.setValueTextSize(10f);
+
+        pieData = new PieData(pieDataSet);
+        pieChart.setData(pieData);
+        pieChart.getDescription().setEnabled(false);
+        pieChart.setCenterText("ToDay");
+        pieChart.animate();
     }
 }

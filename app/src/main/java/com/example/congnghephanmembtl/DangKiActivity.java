@@ -3,21 +3,23 @@ package com.example.congnghephanmembtl;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import DTO.user;
-import fragment.PersonFragment;
 
 public class DangKiActivity extends AppCompatActivity {
 
@@ -53,10 +55,14 @@ public class DangKiActivity extends AppCompatActivity {
                 String name=edt_name.getText().toString();
                 String mk=edt_mk.getText().toString();
                 String id=edt_id.getText().toString();
+                checkCMT(id);
+
+
+
                 if(name==null||name.equals("") ) {
                     Toast.makeText(DangKiActivity.this, "Vui Lòng điền Đầy Đủ Thông Tin", Toast.LENGTH_SHORT).show();
                 }
-                else if(id==null ||id.equals("")|| Integer.valueOf(id)>10000)
+                else if(id==null ||id.equals("")|| Integer.valueOf(id)>10000||Integer.valueOf(id)<1000)
                 {
                     Toast.makeText(DangKiActivity.this, "Lưu ý CMTND chỉ cần 4 số cuối", Toast.LENGTH_SHORT).show();
                 }
@@ -64,6 +70,10 @@ public class DangKiActivity extends AppCompatActivity {
                 {
                     Toast.makeText(DangKiActivity.this, "Vui Lòng điền Đầy Đủ Thông Tin", Toast.LENGTH_SHORT).show();
                 }
+//                else if(checkCMT(id))
+//                {
+//                    Toast.makeText(DangKiActivity.this,"Id Bị trùng rồi",Toast.LENGTH_SHORT).show();
+//                }
                 else {
                     user user = new user(id, name, mk);
                     ref_dangki.child("User").push().setValue(user);
@@ -75,12 +85,6 @@ public class DangKiActivity extends AppCompatActivity {
 
 
                 }
-//                intentgetstart.putExtra("ten",name);
-//                intentgetstart.putExtra("id",id);
-                //nhận dữ liệu:
-//                Intent intent=getIntent();
-//                String  biennhan=intent.getStringExtra("ten");
-
 
             }
         });
@@ -90,5 +94,31 @@ public class DangKiActivity extends AppCompatActivity {
 
 
 
+    }
+    private boolean checkCMT(String idckeck) {
+        final boolean[] kt = {true};
+            ref_dangki.addValueEventListener(new ValueEventListener() {
+            String iduser;
+            ArrayList arrayuser=new ArrayList<>();
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot datauser : snapshot.child("User").getChildren())
+                {
+                    user usercked =datauser.getValue(user.class);
+                    iduser=usercked.getId().toString();
+                    if(idckeck.equals(iduser))
+                    {
+                        kt[0] =true;
+
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+        });
+    return kt[0];
     }
 }

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nếu Bạn Là Quản trị viên Hãy Nhập mã XÁC NHẬN"
+        android:gravity="center"
+        android:textSize="30dp"/>
+    <EditText
+        android:id="@+id/edt_maxacnhan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:inputType="number"/>
+    <Button
+        android:id="@+id/btn_xoadata"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
+        android:text="OK"/>
+    <Button
+        android:id="@+id/btn_thoat_diaolog_xoadata"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
+        android:text="Thoát"/>
+</LinearLayout>

@@ -42,10 +42,10 @@ public class user   {
 
     @Override
     public String toString() {
-        return "user{" +
+        return
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
-                ", pass='" + pass + '\'' +
-                '}';
+                ", pass='" + pass + '\''
+                ;
     }
 }

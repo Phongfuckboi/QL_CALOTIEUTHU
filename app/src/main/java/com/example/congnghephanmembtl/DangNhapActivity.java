@@ -3,7 +3,9 @@ package com.example.congnghephanmembtl;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -23,12 +25,15 @@ import DTO.user;
 
 public class DangNhapActivity extends AppCompatActivity {
 
-    EditText edt_name,edt_pass;
-    Button btn_acess;
-    TextView txt_dangki;
-    private DatabaseReference mdata;
-    ArrayList arrayListdn;
-    String  id;
+   private EditText edt_name,edt_pass;
+   private Button btn_acess;
+   private TextView txt_dangki;
+   private DatabaseReference mdata;
+   public   ArrayList<user> arrayListdn;
+   private  String  id;
+   private  static  int check;
+    String ktname;
+    String ktmk;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,18 +78,17 @@ public class DangNhapActivity extends AppCompatActivity {
         mdata.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String ktname;
-                String ktmk;
+
                 for(DataSnapshot datadn: snapshot.child("User").getChildren())
                 {
                     user user=datadn.getValue(DTO.user.class);
                     arrayListdn.add(user);
                     ktname= user.getName();
-                     ktmk=user.getPass();
-
+                    ktmk=user.getPass();
+                    id=user.getId();
                     if((edt_name.getText().toString().equals(ktname))&&(edt_pass.getText().toString().equals(ktmk)))
                     {
-                        id=user.getId();
+
                         Toast.makeText(DangNhapActivity.this,"let's go",Toast.LENGTH_SHORT).show();
                         Intent intent= new Intent(DangNhapActivity.this,MainActivity.class);
                         intent.putExtra("name",ktname);
@@ -92,10 +96,25 @@ public class DangNhapActivity extends AppCompatActivity {
                         startActivity(intent);
 
                     }
-                    else
-                        Toast.makeText(DangNhapActivity.this,"erorr pass or name",Toast.LENGTH_SHORT).show();
+                    else {
+                        Toast.makeText(DangNhapActivity.this,"Sai Thông tin tài Khoản hoặc MK",Toast.LENGTH_LONG).show();
+                    }
 
                 }
+//                for (int i=0; i<arrayListdn.size();i++)
+//                {
+//                    user user=arrayListdn.get(i);
+//                    if((edt_name.getText().toString()).equals(user.getName()) && (edt_pass.getText().toString().equals(user.getId())))
+//                    {
+//                        Toast.makeText(DangNhapActivity.this,"let's go",Toast.LENGTH_SHORT).show();
+//                        Intent intent= new Intent(DangNhapActivity.this,MainActivity.class);
+//                        intent.putExtra("name",ktname);
+//                        intent.putExtra("id",id);
+//                        startActivity(intent);
+//                    }
+//                    else
+//                        Toast.makeText(DangNhapActivity.this,"Sai Thông tin tài Khoản hoặc MK",Toast.LENGTH_LONG).show();
+//                }
             }
 
             @Override
@@ -104,4 +123,6 @@ public class DangNhapActivity extends AppCompatActivity {
             }
         });
     }
+
+
 }

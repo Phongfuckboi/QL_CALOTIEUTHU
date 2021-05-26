@@ -7,12 +7,14 @@
         android:allowBackup="true"
         android:icon="@drawable/logo"
         android:label="@string/labelapp"
-        tools:replace="android:label"
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
-        android:theme="@style/Theme.CongnghephanmemBTL"
-        tools:ignore="AllowBackup">
-        <activity android:name=".TapLuyenactivity"></activity>
+        android:theme="@style/Theme.CongnghephanmemBTL.NoActionBar"
+        tools:ignore="AllowBackup"
+        tools:replace="android:label">
+        <activity android:name=".adminActiviti"></activity>
+        <activity android:name=".DoimatkhauActivity" />
+        <activity android:name=".TapLuyenactivity" />
         <activity android:name=".ThemThucDonActivity" />
         <activity android:name=".TinhCaloDiChuyenActivity" />
         <activity

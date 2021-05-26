@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".adminActiviti"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Quản Lí Người Dùng"
+        android:gravity="center"
+        android:textSize="30dp"
+        android:textColor="@color/black"
+        android:background="#05868E"
+        android:padding="10dp"/>
+    <TextView
+        android:layout_marginTop="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Danh Sách Người Dùng"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:padding="10dp"/>
+    <ListView
+        android:layout_marginTop="20dp"
+        android:id="@+id/lst_ngươidung"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:text="Thoát"
+        android:id="@+id/btn_thpat_quanli"
+        android:background="#1A54BF"
+        />
+
+
+
+
+</LinearLayout>

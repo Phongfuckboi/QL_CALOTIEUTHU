@@ -2,19 +2,19 @@ package fragment;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.media.midi.MidiOutputPort;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -22,17 +22,19 @@ import com.example.congnghephanmembtl.R;
 import com.example.congnghephanmembtl.TapLuyenactivity;
 import com.example.congnghephanmembtl.ThemThucDonActivity;
 import com.example.congnghephanmembtl.TinhCaloFoodActivity;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import DTO.Move;
 import DTO.eat;
+
+import static android.widget.AdapterView.*;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,14 +43,15 @@ import DTO.eat;
  */
 public class HomeFragment extends Fragment {
     private DatabaseReference ref_eat, ref_move;
-    ArrayAdapter arrayAdaptereat;
-    ArrayAdapter  arrayAdapterMOve;
-    ArrayList<eat>  arr_eat;
-    ArrayList   arr_move;
-    Button btn_themthucdon,btn_tapluyen,btn_chontuds,btn_thucdon;
-    ListView lst_eat;
-    String iduser;
+    private ArrayAdapter arrayAdaptereat;
+    private  ArrayAdapter  arrayAdapterMOve;
+    private ArrayList<eat>  arr_eat;
+    private ArrayList   arr_move;
+    private Button btn_themthucdon,btn_tapluyen,btn_chontuds,btn_thucdon;
+    private ListView lst_eat;
+    private String iduser;
     private  static  int QUYEN=1;
+    ArrayList  arrrycirle=new ArrayList() ;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -105,15 +108,24 @@ public class HomeFragment extends Fragment {
        btn_tapluyen=(Button) view.findViewById(R.id.btn_tapluyen);
        btn_thucdon =(Button) view.findViewById(R.id.btn_thucdon);
        lst_eat=(ListView) view.findViewById(R.id.lst_home) ;
+        FirebaseDatabase firebaseDatabase= FirebaseDatabase.getInstance();
+        ref_eat=FirebaseDatabase.getInstance().getReference();
 
 
        //get to databasr from eat
         arr_eat = new ArrayList<>();
         arrayAdaptereat = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, arr_eat);
         lst_eat.setAdapter(arrayAdaptereat);
+        btn_chontuds.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Toast.makeText(getContext()," phong",Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
 
 
-       //get id
+       //get id nguoi dung
         Bundle bundle=getArguments();
         if(bundle!=null)
         {
@@ -125,10 +137,7 @@ public class HomeFragment extends Fragment {
         }
 
 
-
-
-
-
+        //
         btn_themthucdon.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
@@ -140,6 +149,7 @@ public class HomeFragment extends Fragment {
         //
         //
         thucdon();
+        //
         btn_thucdon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -159,7 +169,7 @@ public class HomeFragment extends Fragment {
         });
 
         Intent intent = new Intent(getContext(), TinhCaloFoodActivity.class);
-        lst_eat.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lst_eat.setOnItemClickListener(new OnItemClickListener() {
             @Override
 
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -175,22 +185,80 @@ public class HomeFragment extends Fragment {
         });
 
         //quyen cua admin
-        lst_eat.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
+        lst_eat.setLongClickable(true);
 
+        lst_eat.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+            public boolean onItemLongClick(AdapterView<?> arg0, View v,
+                                           int index, long arg3) {
+
+                String delete=lst_eat.getItemAtPosition(index).toString();
+                arrrycirle.add(delete);
+                eat eat=arr_eat.get(index);
+                String a=eat.getFood().toString();
+                Dialog dialog =new Dialog(getContext());
+                dialog.setContentView(R.layout.diolog_xoadata);
+                dialog.show();
+                Button btn_xoa= (Button) dialog.findViewById(R.id.btn_xoadata);
+                Button btn_thoat=(Button) dialog.findViewById(R.id.btn_thoat_diaolog_xoadata);
+                EditText edt_maxacnhan=(EditText) dialog.findViewById(R.id.edt_maxacnhan);
+                btn_xoa.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if((edt_maxacnhan.getText().toString()).equals("992000"))
+                        {
+                            Query query= ref_eat.child("Eat").orderByChild("food").equalTo(a);
+                            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    for(DataSnapshot dataSnapshot:snapshot.getChildren())
+                                    {
+                                        dataSnapshot.getRef().removeValue();
+                                    }
+
+
+
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+                                    Log.e(String.valueOf(this), "onCancelled", error.toException());
+                                }
+                            });
+                            Toast.makeText(getContext(),"Xóa Thành Công",Toast.LENGTH_LONG).show();
+                            dialog.dismiss();
+                        }
+                        else if ((edt_maxacnhan.getText().toString()).equals("")|| edt_maxacnhan==null)
+                        {
+                            Toast.makeText(getContext(),"Vui Lòng Nhập Mã Xác Nhận",Toast.LENGTH_LONG).show();
+                        }
+
+
+                    }
+                });
+            btn_thoat.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+
+
+              ;
 
                 return false;
             }
         });
+
+
+
+
+
+
         return view;
     }
 
-
-
     private void thucdon() {
-        FirebaseDatabase firebaseDatabase= FirebaseDatabase.getInstance();
-        ref_eat=FirebaseDatabase.getInstance().getReference();
         ref_eat.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

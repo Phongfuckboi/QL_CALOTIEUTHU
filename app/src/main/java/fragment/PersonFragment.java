@@ -14,12 +14,14 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.applandeo.materialcalendarview.EventDay;
 import com.applandeo.materialcalendarview.exceptions.OutOfDateRangeException;
+import com.example.congnghephanmembtl.DoimatkhauActivity;
 import com.example.congnghephanmembtl.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -43,18 +45,19 @@ import DTO.overview;
  */
 public class PersonFragment extends Fragment {
     private DatabaseReference ref_history, ref_overview;
-    Date today = new Date();
-    ArrayList <History>arrayhistory;
-    ArrayAdapter arrayAdapterhis;
-    ListView list_history;
-    Button btn_chonngay;
-    CalendarView calendarView;
-    String ngaychon;
-    TextView txt_ngaychon ,txt_tenNV,test;
-    Button Btn_chonngay1;
+    private Date today = new Date();
+    private ArrayList <History>arrayhistory;
+    private  ArrayAdapter arrayAdapterhis;
+    private ListView list_history;
+    private Button btn_chonngay;
+    private  CalendarView calendarView;
+    private String  ngaychon;
+    private TextView txt_ngaychon ,txt_tenNV,test;
+    private Button Btn_chonngay1;
     static int sumOfCalories;
     static int sumOfMoveCal;
     static int sumOfEatCal;
+    private ImageView img_canhan;
     String id;
     String name;
 
@@ -114,8 +117,11 @@ public class PersonFragment extends Fragment {
         test=(TextView) view.findViewById(R.id.test);
         txt_tenNV=(TextView) view.findViewById(R.id.txt_tenND);
         btn_chonngay=(Button) view.findViewById(R.id.choosedate);
+        img_canhan=(ImageView) view.findViewById(R.id.img_canhan);
 
-        //
+
+
+        //get id nguoi dung
         Bundle bundle=getArguments();
         if(bundle!=null)
         {
@@ -128,6 +134,16 @@ public class PersonFragment extends Fragment {
            System.out.println("loi");
         }
 
+
+        img_canhan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), DoimatkhauActivity.class);
+                intent.putExtra("name",name);
+                startActivity(intent);
+
+            }
+        });
 
 
         //
@@ -157,14 +173,11 @@ public class PersonFragment extends Fragment {
                    if(date1.equals(datehis)&& id.equals(Ktid) ) {
                        arrayhistory.add(history1);
                    }
-
                }
-
-               arrayAdapterhis=new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1,arrayhistory);
-               list_history.setAdapter(arrayAdapterhis);
-               arrayAdapterhis.notifyDataSetInvalidated();
+                   arrayAdapterhis=new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1,arrayhistory);
+                   list_history.setAdapter(arrayAdapterhis);
+                   arrayAdapterhis.notifyDataSetInvalidated();
            }
-
            @Override
            public void onCancelled(@NonNull DatabaseError error) {
 

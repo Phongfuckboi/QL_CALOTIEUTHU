@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context="fragment.HomeFragment">
 
@@ -52,7 +53,8 @@
         android:gravity="center"
         >
         <Button
-            android:background="@drawable/custom_button"
+            app:backgroundTint="@null"
+            android:background="@drawable/custom_btn"
             android:id="@+id/btn_thucdon"
             android:layout_marginRight="10dp"
             android:text="Thực Đơn"
@@ -60,11 +62,12 @@
             android:layout_height="50dp"
             ></Button>
         <Button
+            app:backgroundTint="@null"
             android:id="@+id/btn_tapluyen"
             android:text="Tập Luyện"
             android:layout_width="150dp"
             android:layout_height="50dp"
-            android:background="@drawable/custom_button"
+            android:background="#CC7427"
             ></Button>
 
     </LinearLayout>
@@ -75,15 +78,16 @@
         android:orientation="horizontal"
         android:gravity="center">
         <Button
-            android:background="@drawable/custom_button"
+            app:backgroundTint="@null"
+            android:background="#58D10D"
             android:id="@+id/btn_chontuds"
             android:layout_marginRight="10dp"
-            android:text="Chọn Từ DS"
+            android:text="Lên Thực Đơn"
             android:layout_width="150dp"
             android:layout_height="50dp"
             ></Button>
         <Button
-            android:background="@drawable/custom_button"
+            android:background="@drawable/custom_btn"
             android:pointerIcon="alias"
             android:id="@+id/btn_themthucdon"
             android:text="Thêm TD riêng"
@@ -94,6 +98,7 @@
     </LinearLayout>
 
     <ListView
+        
         android:id="@+id/lst_home"
         android:layout_width="match_parent"
         android:layout_height="280dp"

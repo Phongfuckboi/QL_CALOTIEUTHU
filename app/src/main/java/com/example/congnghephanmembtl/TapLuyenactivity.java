@@ -20,6 +20,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -28,13 +29,14 @@ import DTO.Move;
 
 public class TapLuyenactivity extends AppCompatActivity {
 
-    ArrayList <Move> array_move;
-    ListView list_move;
-    ArrayAdapter arrayAdaptermove;
-    DatabaseReference ref_move;
-    Move move;
-    Button btn_thembt;
-    String iduser;
+    private ArrayList <Move> array_move;
+    private ListView list_move;
+    private ArrayAdapter arrayAdaptermove;
+    private DatabaseReference ref_move;
+    private Move move;
+    private Button btn_thembt;
+    private String iduser;
+    private  ArrayList array_delete= new ArrayList<Move>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +79,6 @@ public class TapLuyenactivity extends AppCompatActivity {
         list_move.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
                 Move hoatdong= array_move.get(position);
                 intent.putExtra("tenhd",hoatdong.getExercises());
                 intent.putExtra("calohd",hoatdong.getCalories());
@@ -85,6 +86,53 @@ public class TapLuyenactivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        //quyen Admin;\
+        list_move.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+               Move move= (Move) array_move.get(position);
+               String delete= move.getExercises().toString();
+               Dialog dialog= new Dialog(TapLuyenactivity.this);
+               dialog.setContentView(R.layout.diolog_xoadata);
+               dialog.show();
+               Button btn_xoa=(Button) dialog.findViewById(R.id.btn_xoadata);
+               Button btn_thoat=(Button) dialog.findViewById(R.id.btn_thoat_diaolog_xoadata);
+                EditText edt_maxacnhan=(EditText) dialog.findViewById(R.id.edt_maxacnhan);
+                Query query= ref_move.child("Move").orderByChild("exercises").equalTo(delete);
+                btn_xoa.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if ((edt_maxacnhan.getText().toString()).equals("992000")) {
+                            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                        dataSnapshot.getRef().removeValue();
+                                        Toast.makeText(TapLuyenactivity.this,"Xóa Thành Công",Toast.LENGTH_LONG).show();
+                                        dialog.dismiss();
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+
+                        }
+                    }
+                });
+                btn_thoat.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                return false;
+            }
+        });
+
 
         //them bt
         btn_thembt.setOnClickListener(new View.OnClickListener() {

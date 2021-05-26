@@ -140,6 +140,7 @@ public class MainActivity extends AppCompatActivity {
                         loadfragment(fragment);
                         break;
 
+
                 }
 
                 return false;
